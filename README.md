@@ -1,5 +1,12 @@
 # claude-in-container
 
+> **luck-y13 fork.** Built and published from this repo to `ghcr.io/luck-y13/claude-in-container` by
+> [`.github/workflows/publish.yml`](.github/workflows/publish.yml) on every image change merged to `main`, so upstream
+> changes only reach the home-lab servers after review here. Differences from upstream: network troubleshooting tools in
+> the image (`dig`, `ping`, `nc`, `ip`, `traceroute`, `mtr`, `snmpwalk`, `nmap`, `rsync`) and image/template URLs
+> pointing at this fork. The `maintenance/` playbooks are upstream's and are not scheduled here. To pick up upstream
+> changes: `git fetch upstream && git merge upstream/main`, review, push.
+
 Always-on [Claude Code](https://docs.claude.com/en/docs/claude-code) in a container, reachable from phone or browser via Remote Control. Runs on any Docker or Podman host — a server, a NAS (Unraid template included) or a laptop.
 
 ## Why run Claude Code in a container?

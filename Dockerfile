@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
     && apt-get update && apt-get install -y --no-install-recommends \
       tini tmux git openssh-client less procps ripgrep unzip shellcheck build-essential \
       python3 python3-pip python3-venv "postgresql-client-${PG_MAJOR}" \
+      dnsutils iputils-ping netcat-openbsd iproute2 traceroute mtr-tiny snmp nmap rsync \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=uv /uv /uvx /usr/local/bin/
@@ -44,7 +45,7 @@ RUN npm install -g "@anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}" \
     && npm cache clean --force && rm -rf /var/lib/apt/lists/* /root/.npm
 
 # OCI labels: source links the GHCR package to this repository
-LABEL org.opencontainers.image.source="https://github.com/ganesh35/claude-in-container" \
+LABEL org.opencontainers.image.source="https://github.com/luck-y13/claude-in-container" \
       org.opencontainers.image.description="Always-on Claude Code in a container, reachable via Remote Control" \
       org.opencontainers.image.licenses="MIT"
 # Updates come from rebuilding the image, not in-place self-updates

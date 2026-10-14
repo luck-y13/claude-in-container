@@ -1,0 +1,32 @@
+# Builds and publishes ghcr.io/luck-y13/claude-in-container from this fork. Image changes only ship when they reach
+# main, so nothing upstream lands on the Unraid servers until it has been merged here
+name: publish
+
+on:
+  push:
+    branches: [main]
+    paths: [Dockerfile, start.sh, install-tools.sh, routine.sh, keys/**, .github/workflows/publish.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint
+        run: sh scripts/lint.sh
+      - name: Security scan (repo + Dockerfile)
+        run: sh scripts/security.sh
+      - name: Build and push
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_IMAGE: ghcr.io/luck-y13/claude-in-container
+        run: sh scripts/publish.sh
